@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "To Do List"
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "Cell")
     }
 
     @IBAction func addToDoItem(_ sender: UIBarButtonItem) {
