@@ -31,7 +31,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="1hn-vi-EtF"/>
+                    <navigationItem key="navigationItem" id="1hn-vi-EtF">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="S86-og-omy"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
