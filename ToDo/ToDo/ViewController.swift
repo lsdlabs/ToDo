@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        title = "To Do List"
     }
 
     @IBAction func addToDoItem(_ sender: UIBarButtonItem) {
