@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var toDoList: [String] = []
@@ -20,8 +20,30 @@ class ViewController: UIViewController {
         tableView.register(UITableViewCell.self,
                            forCellReuseIdentifier: "Cell")
     }
-
+    
     @IBAction func addToDoItem(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "New Item",
+                                      message: "Add a new item to your To Do list",
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
+                guard let textField = alert.textFields?.first, let itemToSave = textField.text else {
+                        return
+                        }
+                                        
+                        self.toDoList.append(itemToSave)
+                        self.tableView.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addTextField()
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
     
 }
