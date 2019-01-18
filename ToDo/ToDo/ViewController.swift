@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var toDoList: [String] = []
+    var toDoList: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
