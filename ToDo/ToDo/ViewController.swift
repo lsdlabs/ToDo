@@ -28,15 +28,6 @@ class ViewController: UIViewController {
                                       message: "Add a new item to your To Do list",
                                       preferredStyle: .alert)
         
-//        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
-//                guard let textField = alert.textFields?.first, let itemToSave = textField.text else {
-//                        return
-//                        }
-//
-//                        self.toDoList.append(itemToSave)
-//                        self.tableView.reloadData()
-//        }
-        
         let saveAction = UIAlertAction(title: "Save", style: .default) {
             [unowned self] action in
             
@@ -44,12 +35,9 @@ class ViewController: UIViewController {
                 let itemToSave = textField.text else {
                     return
             }
-            //This takes the text in the text field and passes it over to a new method named save(item:)
             self.save(item: itemToSave)
             self.tableView.reloadData()
         }
-        
-
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -70,22 +58,18 @@ class ViewController: UIViewController {
                 return
         }
         
-        // 1
         let managedContext =
             appDelegate.persistentContainer.viewContext
         
-        // 2
         let entity =
             NSEntityDescription.entity(forEntityName: "ToDoList",
                                        in: managedContext)!
         
         let toDoListItem = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
+                                           insertInto: managedContext)
         
-        // 3
         toDoListItem.setValue(item, forKeyPath: "item")
         
-        // 4
         do {
             try managedContext.save()
             toDoList.append(toDoListItem)
@@ -93,30 +77,8 @@ class ViewController: UIViewController {
             print("Could not save. \(error), \(error.description)")
         }
     }
-}
-
-/*
-// MARK: - UITableViewDataSource
-extension ViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
-        return toDoList.count
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
-            
-            let cell =
-                tableView.dequeueReusableCell(withIdentifier: "Cell",
-                                              for: indexPath)
-            cell.textLabel?.text = toDoList[indexPath.row]
-            return cell
-    }
 }
-
-*/
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
@@ -127,14 +89,10 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-            //set local variable toDoItem to toDoList[indexPath.row] to be used later as the textLabel with the acquired "item" attribute
             let toDoItem = toDoList[indexPath.row]
             let cell =
                 tableView.dequeueReusableCell(withIdentifier: "Cell",
                                               for: indexPath)
-            
-            //grab the item attribute from the NSManagedObject
-            // match cells with the corresponding NSManagedObject
             cell.textLabel?.text =
                 toDoItem.value(forKeyPath: "item") as? String
             return cell
