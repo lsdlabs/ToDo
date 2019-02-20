@@ -18,8 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "To Do List"
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     @IBAction func addToDoItem(_ sender: UIBarButtonItem) {
@@ -31,10 +30,10 @@ class ViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default) {
             [unowned self] action in
             
-            guard let textField = alert.textFields?.first,
-                let itemToSave = textField.text else {
-                    return
+            guard let textField = alert.textFields?.first, let itemToSave = textField.text else {
+                return
             }
+            
             self.save(item: itemToSave)
             self.tableView.reloadData()
         }
@@ -53,20 +52,15 @@ class ViewController: UIViewController {
     
     func save(item: String) {
         
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
         }
         
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         
-        let entity =
-            NSEntityDescription.entity(forEntityName: "ToDoList",
-                                       in: managedContext)!
+        let entity = NSEntityDescription.entity(forEntityName: "ToDoList", in: managedContext)!
         
-        let toDoListItem = NSManagedObject(entity: entity,
-                                           insertInto: managedContext)
+        let toDoListItem = NSManagedObject(entity: entity, insertInto: managedContext)
         
         toDoListItem.setValue(item, forKeyPath: "item")
         
@@ -81,21 +75,15 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoList.count
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
-            let toDoItem = toDoList[indexPath.row]
-            let cell =
-                tableView.dequeueReusableCell(withIdentifier: "Cell",
-                                              for: indexPath)
-            cell.textLabel?.text =
-                toDoItem.value(forKeyPath: "item") as? String
-            return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let toDoItem = toDoList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = toDoItem.value(forKeyPath: "item") as? String
+        return cell
     }
 }
 
